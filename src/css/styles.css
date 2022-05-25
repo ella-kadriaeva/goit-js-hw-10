@@ -18,3 +18,17 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+.card__list {
+  display: flex;
+  align-items: center;
+}
+.card-item__title {
+  font-size: 26px;
+  font-weight: 900;
+}
+
+.card-img {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+}
