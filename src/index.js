@@ -12,10 +12,13 @@ const countryCard = document.querySelector(".country-info");
 serchCountry.addEventListener("input", _.debounce(onInputEv, DEBOUNCE_DELAY));
 
 function onInputEv (e) {
-      let serch = e.target.value;
-      let serchValue = checkSerchString (serch);
+      let serch = e.target.value.trim();
+      if(serch === '') {
+        clearSerchForm();
+        return 
+      }
         
-      API.fetchCountries(serchValue)
+      API.fetchCountries(serch)
         .then(checkArrey)
         .catch(() => {
           Notiflix.Notify.failure('Oops, there is no country with that name');
@@ -25,7 +28,8 @@ function onInputEv (e) {
      }
 
 function checkArrey(array) {  
-  if(array.length > 10) {     
+  if(array.length > 10) {
+    clearSerchForm();     
     return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.'); 
   }
   if(array.length > 1) { 
@@ -44,13 +48,9 @@ function renderCountryLongList (country) {
   return countryCard.innerHTML = markup;
 }
 
-function checkSerchString (stringCheck) {
-  if(stringCheck === '') {
-     return 
-  }
-  const checkedSerch = stringCheck.trim();
-  return checkedSerch;
-}
+
+  
+
 
 function clearSerchForm() {
   countryCard.innerHTML = '';
